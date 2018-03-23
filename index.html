@@ -21,7 +21,7 @@
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
 	</head>
-	<body onClick="javascript: Reveal.next()">
+	<body>
 		<div class="reveal">
 			<div class="slides">
 				<section>
@@ -30,6 +30,9 @@
 					<div style="margin-top:1em">
 						<small class="light">presented by</small><br>
 						<img src="cfilogo.svg" style="width: 8em; border: 0; box-shadow:none; margin-top: 0"/>
+						<div>
+						<small class="light">Miran Lipovača</small>
+					</div>
 					</div>
 
 				</section>
@@ -39,6 +42,7 @@
 					<div class="fragment">
 						<pre><code data-trim data-noescape>
 							$ npm install -g truffle
+							$ truffle init
 						</code></pre>
 					</div>
 				</section>
@@ -81,12 +85,11 @@ pragma solidity ^0.4.4;
 
 contract Billboard {
   address public owner;
-  string public text;
-  uint256 public largestBid;
+  string public text = 'Youre add goes here';
+  uint256 public largestBid = 0;
 
   function Billboard() public {
     owner = msg.sender;
-    text = 'Youre ad goes here';
   }
 					</code></pre>
 				</section>
@@ -101,7 +104,7 @@ contract Billboard {
 					</code></pre>
 				</section>
 				<section>
-					<h2>Dvigovanje ethra</h2>
+					<h2>Izplačevanje lastniku</h2>
 					<pre><code data-trim data-noescape>
   function withdraw() public {
     require(msg.sender == owner);
@@ -110,7 +113,18 @@ contract Billboard {
 					</code></pre>
 				</section>
 				<section>
-					<h1>Naslednji koraki</h1>
+					<h2>Migracija</h2>
+					<div class="light">Pove Trufflu kako objaviti contract</div>
+					<pre><code data-trim data-noescape>
+let Billboard = artifacts.require("Billboard");
+module.exports = function(deployer) {
+  deployer.deploy(Billboard);
+};
+
+					</code></pre>
+				</section>
+				<section>
+					<h1>Kaj sledi?</h1>
 					<ul>
 						<li class="fragment">Testi</li>
 						<li class="fragment">Debugging</li>
