@@ -116,11 +116,12 @@ contract Billboard {
 					<h2>Migracija</h2>
 					<div class="light">Pove Trufflu kako objaviti contract</div>
 					<pre><code data-trim data-noescape>
-let Billboard = artifacts.require("Billboard");
-module.exports = function(deployer) {
-  deployer.deploy(Billboard);
-};
+var Bidboard = artifacts.require('Billboard')
 
+module.exports = function(deployer) {
+  let charity = web3.eth.accounts[1]
+  deployer.deploy(Bidboard, charity)
+};
 					</code></pre>
 				</section>
 				<section>
