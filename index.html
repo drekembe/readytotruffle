@@ -81,15 +81,15 @@ module.exports = {
 					<h1>Billboard.sol</h1>
 					<p class="light">Storage podatki in konstruktor</p>
 					<pre><code data-trim data-nosecape>
-pragma solidity ^0.4.4;
+pragma solidity 0.4.21;
 
 contract Billboard {
-  address public owner;
-  string public text = 'Youre add goes here';
-  uint256 public largestBid = 0;
+  address public charity;
+  string public text = 'Your ad goes here';
+  uint256 public currentTextValue;
 
-  function Billboard() public {
-    owner = msg.sender;
+  function Billboard(address _charity) public {
+    charity = _charity;
   }
 					</code></pre>
 				</section>
@@ -97,9 +97,9 @@ contract Billboard {
 					<h2>Zakup sporočila</h2>
 					<pre><code data-trim data-noescape>
   function setText(string _text) public payable {
-    require(msg.value > largestBid);
+    require(msg.value > currentTextValue);
     text = _text;
-    largestBid = msg.value;
+    currentTextValue = msg.value;
   }
 					</code></pre>
 				</section>
@@ -107,8 +107,8 @@ contract Billboard {
 					<h2>Izplačevanje lastniku</h2>
 					<pre><code data-trim data-noescape>
   function withdraw() public {
-    require(msg.sender == owner);
-    owner.transfer(this.balance);
+    require(msg.sender == charity);
+    charity.transfer(address(this).balance);
   }
 					</code></pre>
 				</section>
@@ -134,6 +134,7 @@ module.exports = function(deployer) {
 						<li class="fragment">Integracija z Metamask in Ledger</li>
 					</ul>
 					<p class="fragment light">blog.cofound.it</p>
+					<p class="light">github.cofound.it</p>
 				</section>
 				<section data-background-color="#ff3344" data-transition="zoom">
 					<h1>Hvala za pozornost!</h1>
